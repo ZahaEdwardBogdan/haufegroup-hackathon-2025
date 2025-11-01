@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="HaufeApp/App.axaml" value="HaufeApp/HaufeApp.csproj" />
+        <entry key="HaufeApp/Views/MainWindow.axaml" value="HaufeApp/HaufeApp.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
