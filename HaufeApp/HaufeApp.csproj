@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="Models\" />
+        <AvaloniaResource Include="Assets\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Core Avalonia 11 Packages -->
+        <PackageReference Include="Avalonia" Version="11.3.6" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.3.6" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.6" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.6" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.6" />
+
+        <!-- Text Editor Packages -->
+        <!-- REQUIRED: The core Avalonia text editor control (AvalonEdit port) -->
+        <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.3.0" />
+        <!-- TextMate integration for syntax highlighting -->
+        <PackageReference Include="AvaloniaEdit.TextMate" Version="11.3.0" />
+        <!-- The TextMate.Grammars package with version 0.10.12 was removed as it is outdated. 
+             The 11.x version of AvaloniaEdit.TextMate typically pulls in the correct TextMateSharp.Grammars dependency. -->
+
+        <!-- Other Packages -->
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.6">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="OllamaSharp" Version="5.4.8" />
+        <PackageReference Include="ReactiveUI" Version="22.2.1" />
+        <PackageReference Include="ReactiveUI.Avalonia" Version="11.3.0" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,112 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:HaufeApp.ViewModels"
+        xmlns:Markup="using:HaufeApp.Markup" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ae="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="HaufeApp.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        x:CompileBindings="True"
+        Title="{Binding WindowTitle}">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+        
+            <Border Background="#d6d6d6" Padding="5">
+                <StackPanel Orientation="Vertical" Spacing="5">
+                    <Button HorizontalAlignment="Stretch"
+                            Command="{Binding OpenFileCommand}">
+                        <TextBlock HorizontalAlignment="Center">Open File</TextBlock>
+                    </Button>
+                    <Button HorizontalAlignment="Stretch"
+                            Command="{Binding SaveFileCommand}">
+                        <TextBlock HorizontalAlignment="Center">Save File</TextBlock>
+                    </Button>
+                    <Button HorizontalAlignment="Stretch"
+                            Command="{Binding SaveFileAsCommand}">
+                        <TextBlock HorizontalAlignment="Center">Save As</TextBlock>
+                    </Button>
+                    <Rectangle Height="3" Fill="#ababab"></Rectangle>
+                    <Button HorizontalAlignment="Stretch"
+                            Command="{Binding ReviewCodeCommand}">
+                        <TextBlock HorizontalAlignment="Center">Review Code</TextBlock>
+                    </Button>
+                    <Button HorizontalAlignment="Stretch"
+                            Command="{Binding RepairCodeCommand}">
+                        <TextBlock HorizontalAlignment="Center">Repair Code</TextBlock>
+                    </Button>
+                    <TextBox Watermark="Guideline to review..." Text="{Binding GuidelineContent, Mode=OneWayToSource}"/>
+                    <TextBox Watermark="What to focus on..." Text="{Binding FocusContent, Mode=OneWayToSource}"/>
+                </StackPanel>
+            </Border>
+        
+            <Border Grid.Column="1" Background="#f0f0f0" Padding="5">
+                <ae:TextEditor ShowLineNumbers="True"
+                               SyntaxHighlighting="C#"
+                               Markup:AvaloniaEditAdapter.EditorText="{Binding TextContent, Mode=TwoWay}"/>
+            </Border>
+        </Grid>
+        
+        <Border Grid.Row="1"
+                Background="#ababab">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock HorizontalAlignment="Center">Code Review/Summary</TextBlock>
+                    <ScrollViewer Grid.Row="1"
+                                    VerticalAlignment="Stretch"
+                                  VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled">
+                        <TextBlock HorizontalAlignment="Stretch"
+                                   Margin="5"
+                                   TextWrapping="Wrap"
+                                   Background="#f0f0f0"
+                                   VerticalAlignment="Stretch"
+                                   Text="{Binding ReviewContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                        </TextBlock>
+                    </ScrollViewer>
+                </Grid>
+                <Border Grid.Column="1" Margin="0,5,0,5" Background="#d6d6d6" VerticalAlignment="Stretch"></Border>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock HorizontalAlignment="Center">Repaired Code</TextBlock>
+                    
+                        <ae:TextEditor Grid.Row="1" ShowLineNumbers="True"
+                                       WordWrap="True"
+                                       Margin="5"
+                                       SyntaxHighlighting="C#"
+                                       Markup:AvaloniaEditAdapter.EditorText="{Binding RepairContent, Mode=TwoWay}"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
